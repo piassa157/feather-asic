@@ -36,7 +36,10 @@ jobs:
           source: ./  
           destination: ./_site
       - name: Run ts-node
-        run: npx ts-node app.ts 
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'latest'
+      - run: npm install
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 
@@ -51,3 +54,5 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - run: npx ts-node app.ts
+
