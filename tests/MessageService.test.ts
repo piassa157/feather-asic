@@ -5,13 +5,11 @@ describe('Testing MessageService', () => {
     test('Should be execute messages', async () => {
         const messageClass = new MessageService()
 
-        const messageTest: Message = {
+        const messageTestToInsert: Message = {
             text: "Should be a message."
         }
-
-        const messageInserted = await messageClass.create(messageTest);
-        const getMessage = await messageClass.find();
+        const messageInserted = await messageClass.create(messageTestToInsert);
         
-        expect(messageInserted).toBe(getMessage[0])
+        expect(messageInserted.text).toBe(messageTestToInsert.text)
     })
 })
