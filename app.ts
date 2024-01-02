@@ -1,40 +1,10 @@
 import { feathers } from '@feathersjs/feathers'
 import { koa, rest, bodyParser, errorHandler, serveStatic } from '@feathersjs/koa'
 import socketio from '@feathersjs/socketio'
+import {MessageService, Message} from './src/MessageService'
 
 
-interface Message {
-    id?: number
-    text: string
-}
-
-
-class MessageService {
-
-    messages: Message[] = []
-
-
-    async find() {
-        return this.messages
-    }
-
-
-    async create(data: Pick<Message, 'text'>) {
-        const message: Message = {
-            id: this.messages.length,
-            text: data.text
-        }
-
-        this.messages.push(message)
-
-        return message;
-    }
-
-
-}
-
-
-type ServicesTypes = {
+export type ServicesTypes = {
     messages: MessageService
 }
 
@@ -65,7 +35,7 @@ app.service('messages').on('created', (message: Message) => {
 })
 
 
-const main = async () => {
+export const main = async () => {
     await app.service('messages').create({
         text: "hello world 🌏"
     })
